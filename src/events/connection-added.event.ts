@@ -46,7 +46,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     {
         title: "Invoice URL",
         description: "The URL of the invoice that can be used to view the invoice.",
-        api_slug: "invoice-url",
+        api_slug: "invoice_url",
         type: "text",
         is_required: false,
         is_unique: false,
@@ -82,7 +82,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Amount Due",
         description:
             "Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the amount_due may be 0. If there is a positive starting_balance for the invoice (the customer owes money), the amount_due will also take that into account. The charge that gets generated for the invoice will be for the amount specified in amount_due.",
-        api_slug: "amount-due",
+        api_slug: "amount_due",
         type: "currency",
         is_required: false,
         is_unique: false,
@@ -98,7 +98,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Amount Overpaid",
         description:
             "Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.",
-        api_slug: "amount-overpaid",
+        api_slug: "amount_overpaid",
         type: "currency",
         is_required: false,
         is_unique: false,
@@ -113,7 +113,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     {
         title: "Amount Paid",
         description: "The amount that was paid.",
-        api_slug: "amount-paid",
+        api_slug: "amount_paid",
         type: "currency",
         is_required: false,
         is_unique: false,
@@ -128,7 +128,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     {
         title: "Amount Remaining",
         description: "The difference between amount_due and amount_paid.",
-        api_slug: "amount-remaining",
+        api_slug: "amount_remaining",
         type: "currency",
         is_required: false,
         is_unique: false,
@@ -143,7 +143,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     {
         title: "Amount Shipping",
         description: "This is the sum of all the shipping amounts.",
-        api_slug: "amount-shipping",
+        api_slug: "amount_shipping",
         type: "currency",
         is_required: false,
         is_unique: false,
@@ -158,7 +158,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     {
         title: "Aplied Amount",
         description: "The amount that was applied to the invoice.",
-        api_slug: "applied-amount",
+        api_slug: "applied_amount",
         type: "currency",
         is_required: false,
         is_unique: false,
@@ -174,7 +174,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Due Date",
         description:
             "The date on which payment for this invoice is due. This value will be null for invoices where collection_method=charge_automatically.",
-        api_slug: "due-date",
+        api_slug: "due_date",
         type: "date",
         is_required: false,
         is_unique: false,
@@ -185,7 +185,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Ending Balance",
         description:
             "Ending customer balance after the invoice is finalized. Invoices are finalized approximately an hour after successful webhook delivery or when payment collection is attempted for the invoice. If the invoice has not been finalized yet, this will be null.",
-        api_slug: "ending-balance",
+        api_slug: "ending_balance",
         type: "currency",
         is_required: false,
         is_unique: false,
@@ -201,7 +201,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Invoice PDF",
         description:
             "The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.",
-        api_slug: "invoice-pdf",
+        api_slug: "invoice_pdf",
         type: "text",
         is_required: false,
         is_unique: false,
@@ -212,7 +212,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Receipt Number",
         description:
             "This is the transaction number that appears on email receipts sent for this invoice.",
-        api_slug: "receipt-number",
+        api_slug: "receipt_number",
         type: "text",
         is_required: false,
         is_unique: false,
@@ -223,7 +223,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Starting Balance",
         description:
             "Starting customer balance before the invoice is finalized. If the invoice has not been finalized yet, this will be the current customer balance. For revision invoices, this also includes any customer balance that was applied to the original invoice.",
-        api_slug: "starting-balance",
+        api_slug: "starting_balance",
         type: "currency",
         is_required: false,
         is_unique: false,
@@ -255,7 +255,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Subtotal Excluding Tax",
         description:
             "The integer amount in cents representing the subtotal of the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated",
-        api_slug: "subtotal-excl-tax",
+        api_slug: "subtotal_excl_tax",
         type: "currency",
         is_required: false,
         is_unique: false,
@@ -271,7 +271,7 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Total Excluding Tax",
         description:
             "The integer amount in cents representing the total amount of the invoice including all discounts but excluding all tax.",
-        api_slug: "total-excl-tax",
+        api_slug: "total_excl_tax",
         type: "currency",
         is_required: false,
         is_unique: false,
@@ -333,7 +333,7 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Canceled At",
         description:
             "If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with cancel_at_period_end, canceled_at will reflect the time of the most recent update request, not the end of the subscription period when the subscription is automatically moved to a canceled state.",
-        api_slug: "canceled-at",
+        api_slug: "canceled_at",
         type: "date",
         is_required: false,
         is_unique: false,
@@ -345,7 +345,7 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         description:
             "Whether this subscription will (if status=active) or did (if status=canceled) cancel at the end of the current billing period.",
         api_slug: "cancelled",
-        type: "boolean",
+        type: "select",
         is_required: false,
         is_unique: false,
         is_multiselect: false,
@@ -355,7 +355,7 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Collection Method",
         description:
             "Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as active.",
-        api_slug: "collection-method",
+        api_slug: "collection_method",
         type: "select",
         is_required: false,
         is_unique: false,
@@ -366,7 +366,7 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Days until due",
         description:
             "Number of days a customer has to pay invoices generated by this subscription. This value will be null for subscriptions where collection_method=charge_automatically.",
-        api_slug: "days-until-due",
+        api_slug: "days_until_due",
         type: "number",
         is_required: false,
         is_unique: false,
@@ -388,7 +388,7 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         title: "Start Date",
         description:
             "Date when the subscription was first created. The date might differ from the created date due to backdating.",
-        api_slug: "start-date",
+        api_slug: "start_date",
         type: "date",
         is_required: false,
         is_unique: false,
@@ -398,7 +398,7 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     {
         title: "Trial Start",
         description: "If the subscription has a trial, the beginning of that trial.",
-        api_slug: "trial-start",
+        api_slug: "trial_start",
         type: "date",
         is_required: false,
         is_unique: false,
@@ -408,7 +408,7 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     {
         title: "Trial End",
         description: "If the subscription has a trial, the end of that trial.",
-        api_slug: "trial-end",
+        api_slug: "trial_end",
         type: "date",
         is_required: false,
         is_unique: false,

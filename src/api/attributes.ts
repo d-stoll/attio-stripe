@@ -53,6 +53,6 @@ export const createAttribute = async ({
                 is_multiselect,
                 config,
             },
-        },
-    })
+            },
+        });
 }
