@@ -500,33 +500,33 @@ export default async function connectionAdded({connection}: {connection: Connect
                 type: "webhook_endpoint",
                 event_payload: "snapshot",
                 enabled_events: [
-                    "v1.customer.created",
-                    "v1.customer.updated",
-                    "v1.customer.deleted",
-                    "v1.customer.subscription.created",
-                    "v1.customer.subscription.deleted",
-                    "v1.customer.subscription.paused",
-                    "v1.customer.subscription.pending_update_applied",
-                    "v1.customer.subscription.pending_update_expired",
-                    "v1.customer.subscription.resumed",
-                    "v1.customer.subscription.trial_will_end",
-                    "v1.customer.subscription.updated",
-                    "v1.invoice.created",
-                    "v1.invoice.deleted",
-                    "v1.invoice.finalization_failed",
-                    "v1.invoice.finalized",
-                    "v1.invoice.marked_uncollectible",
-                    "v1.invoice.overdue",
-                    "v1.invoice.overpaid",
-                    "v1.invoice.paid",
-                    "v1.invoice.payment_action_required",
-                    "v1.invoice.payment_failed",
-                    "v1.invoice.payment_succeeded",
-                    "v1.invoice.sent",
-                    "v1.invoice.upcoming",
-                    "v1.invoice.updated",
-                    "v1.invoice.voided",
-                    "v1.invoice.will_be_due",
+                    "customer.created",
+                    "customer.updated",
+                    "customer.deleted",
+                    "customer.subscription.created",
+                    "customer.subscription.deleted",
+                    "customer.subscription.paused",
+                    "customer.subscription.pending_update_applied",
+                    "customer.subscription.pending_update_expired",
+                    "customer.subscription.resumed",
+                    "customer.subscription.trial_will_end",
+                    "customer.subscription.updated",
+                    "invoice.created",
+                    "invoice.deleted",
+                    "invoice.finalization_failed",
+                    "invoice.finalized",
+                    "invoice.marked_uncollectible",
+                    "invoice.overdue",
+                    "invoice.overpaid",
+                    "invoice.paid",
+                    "invoice.payment_action_required",
+                    "invoice.payment_failed",
+                    "invoice.payment_succeeded",
+                    "invoice.sent",
+                    "invoice.upcoming",
+                    "invoice.updated",
+                    "invoice.voided",
+                    "invoice.will_be_due",
                 ],
                 webhook_endpoint: {
                     url: stripeWebhookHandler.url,
@@ -542,8 +542,15 @@ export default async function connectionAdded({connection}: {connection: Connect
         await updateWebhookHandler(stripeWebhookHandler.id, {
             externalWebhookId: stripeWebhookRegistration.id,
         })
-        await experimental_kv.set("stripe-webhook-secret", stripeWebhookRegistration.signing_secret)
+
+        await experimental_kv.set(
+            "stripe-webhook-secret",
+            stripeWebhookRegistration.webhook_endpoint.signing_secret
+        )
     } else {
+        console.error(
+            `Stripe webhook registration failed: ${stripeWebhookRegistrationResponse.statusText} ${stripeWebhookRegistrationResponse.status} ${await stripeWebhookRegistrationResponse.text()}`
+        )
         throw new Error("Stripe webhook registration failed")
     }
 }
