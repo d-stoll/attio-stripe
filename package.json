@@ -22,13 +22,15 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.0",
+    "@types/crypto-js": "^4.2.2",
     "@types/react": "19.1.8",
-    "node-fetch": "3.3.2",
+    "@typescript-eslint/parser": "^8.34.1",
     "eslint": "^9.29.0",
-    "@typescript-eslint/parser": "^8.34.1"
+    "node-fetch": "3.3.2"
   },
   "dependencies": {
     "attio": "latest",
+    "crypto-js": "^4.2.0",
     "react": "19.1.0",
     "zod": "3.25.67"
   }

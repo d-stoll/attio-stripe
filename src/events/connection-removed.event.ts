@@ -17,6 +17,9 @@ export default async function connectionRemoved({connection}: {connection: Conne
         )
 
         if (!stripeWebhookDeletionResponse.ok) {
+            console.error(
+                `Failed to delete Stripe webhook: ${stripeWebhookDeletionResponse.statusText} ${stripeWebhookDeletionResponse.status} ${await stripeWebhookDeletionResponse.text()}`
+            )
             throw new Error("Failed to delete Stripe webhook")
         }
 

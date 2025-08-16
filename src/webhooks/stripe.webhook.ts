@@ -1,42 +1,40 @@
 import {experimental_kv} from "attio/server"
+import {enc, HmacSHA256} from "crypto-js"
+import {timingSafeEqual} from "../lib/crypto"
 
 export default async function stripeWebhookHandler(request: Request) {
-    if (!request.body) {
-        return new Response("Body is missing", {status: 400})
-    }
-
     const body = await request.text()
     const endpointSecret = await experimental_kv.get("stripe-webhook-secret")
 
-    if (endpointSecret?.value) {
-        const signatureHeader = request.headers.get("stripe-signature")
-        const parts = signatureHeader?.split(",").map((part) => part.split("="))
-        const timestamp = parts?.find((part) => part[0] === "t")?.[1]
-        const requestSignature = parts?.find((part) => part[0] === "v1")?.[1]
+    const secret = endpointSecret?.value
 
-        if (!timestamp || !requestSignature) {
-            return new Response("Signature is missing", {status: 400})
-        }
+    if (!secret) {
+        return new Response("Endpoint secret not configured", {status: 400})
+    }
 
-        const signedPayload = `${timestamp}.${body}`
+    const signatureHeader = request.headers.get("stripe-signature")
 
-        const encoder = new TextEncoder()
-        const key = await crypto.subtle.importKey(
-            "raw",
-            encoder.encode(endpointSecret.value as string),
-            {name: "HMAC", hash: "SHA-256"},
-            false,
-            ["sign"]
-        )
-        const buffer = await crypto.subtle.sign("HMAC", key, encoder.encode(signedPayload))
+    if (!signatureHeader) {
+        return new Response("Signature header not found", {status: 400})
+    }
 
-        const computedSignature = Array.from(new Uint8Array(buffer))
-            .map((b) => b.toString(16).padStart(2, "0"))
-            .join("")
+    const parts = signatureHeader.split(",").map((part) => part.split("="))
+    const timestamp = parts.find((part) => part[0] === "t")?.[1]
+    const requestSignature = parts.find((part) => part[0] === "v1")?.[1]
 
-        if (requestSignature !== computedSignature) {
-            return new Response("Signature is invalid", {status: 400})
-        }
+    if (!timestamp) {
+        return new Response("Timestamp is missing", {status: 400})
+    }
+
+    if (!requestSignature) {
+        return new Response("Signature is missing", {status: 400})
+    }
+
+    const signedPayload = `${timestamp}.${body}`
+    const computedSignature = HmacSHA256(signedPayload, secret as string).toString(enc.Hex)
+
+    if (!timingSafeEqual(requestSignature, computedSignature)) {
+        return new Response("Signature is invalid", {status: 400})
     }
 
     const event = JSON.parse(body)
