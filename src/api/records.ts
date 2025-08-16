@@ -16,7 +16,7 @@ type ListRecordsParams = {
 export const listRecords = async (params: ListRecordsParams) => {
     return await attioFetch({
         method: "POST",
-        path: `/objects/${params.object}/records`,
+        path: `/objects/${params.object}/records/query`,
         body: {
             filter: params.filter,
             sorts: params.sorts,

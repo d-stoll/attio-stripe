@@ -56,3 +56,28 @@ export const createAttribute = async ({
         },
     })
 }
+
+export const listOptions = async (object: string, attribute: string) => {
+    return await attioFetch({
+        method: "GET",
+        path: `/objects/${object}/attributes/${attribute}/options`,
+    })
+}
+
+export type CreateOptionParams = {
+    object: string
+    attribute: string
+    title: string
+}
+
+export const createOption = async ({object, attribute, title}: CreateOptionParams) => {
+    return await attioFetch({
+        method: "POST",
+        path: `/objects/${object}/attributes/${attribute}/options`,
+        body: {
+            data: {
+                title,
+            },
+        },
+    })
+}

@@ -1,14 +1,24 @@
 /** biome-ignore-all lint(suspicious/noExplicitAny): For the purpose of this tutorial, we are using the `any` type to keep the code simple. In a real-world application, you should use more specific types. */
 import {
     createWebhookHandler,
+    deleteWebhookHandler,
     experimental_kv,
     updateWebhookHandler,
     type Connection,
 } from "attio/server"
-import {createAttribute, getAttributes, type CreateAttributeParams} from "../api/attributes"
+import {
+    createAttribute,
+    createOption,
+    getAttributes,
+    listOptions,
+    type CreateAttributeParams,
+} from "../api/attributes"
 import {createObject, getObjects} from "../api/objects"
+import {syncSubscriptions} from "../bulk/subscriptions"
+import {syncCustomers} from "../bulk/customers"
+import {syncInvoices} from "../bulk/invoices"
 
-const customerAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
+const customerAttributes: Omit<CreateAttributeParams, "object">[] = [
     {
         title: "Customer ID",
         description: "The customer's ID in Stripe.",
@@ -62,7 +72,7 @@ const customerAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     },
 ]
 
-const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
+const invoiceAttributes: Omit<CreateAttributeParams, "object">[] = [
     {
         title: "Invoice ID",
         description: "The invoice's ID in Stripe.",
@@ -78,8 +88,8 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         description: "The customer's ID in Stripe.",
         api_slug: "customer_id",
         type: "record-reference",
-        is_required: true,
-        is_unique: true,
+        is_required: false,
+        is_unique: false,
         is_multiselect: false,
         config: {
             record_reference: {
@@ -339,7 +349,14 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     },
 ]
 
-const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
+const invoiceSelectOptions: {attribute: string; options: string[]}[] = [
+    {
+        attribute: "status",
+        options: ["draft", "open", "paid", "uncollectible", "void"],
+    },
+]
+
+const subscriptionAttributes: Omit<CreateAttributeParams, "object">[] = [
     {
         title: "Subscription ID",
         description: "The subscription's ID in Stripe.",
@@ -355,8 +372,8 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         description: "The customer's ID in Stripe.",
         api_slug: "customer_id",
         type: "record-reference",
-        is_required: true,
-        is_unique: true,
+        is_required: false,
+        is_unique: false,
         is_multiselect: false,
         config: {
             record_reference: {
@@ -369,8 +386,8 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         description: "The latest invoice for the subscription.",
         api_slug: "latest_invoice",
         type: "record-reference",
-        is_required: true,
-        is_unique: true,
+        is_required: false,
+        is_unique: false,
         is_multiselect: false,
         config: {
             record_reference: {
@@ -488,16 +505,38 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     },
 ]
 
+const subscriptionSelectOptions: {attribute: string; options: string[]}[] = [
+    {
+        attribute: "status",
+        options: [
+            "incomplete",
+            "incomplete_expired",
+            "trialing",
+            "active",
+            "past_due",
+            "canceled",
+            "unpaid",
+            "paused",
+        ],
+    },
+    {
+        attribute: "cancelled",
+        options: ["True", "False"],
+    },
+    {
+        attribute: "collection_method",
+        options: ["charge_automatically", "send_invoice"],
+    },
+]
+
 const createObjectAndAttributes = async (
     objects: any,
     objectApiSlug: string,
     singularNoun: string,
     pluralNoun: string,
-    attributesToAdd: any[]
+    attributes: any[]
 ) => {
     const object = objects.data.find((o: any) => o?.api_slug === objectApiSlug)
-
-    console.log(object)
 
     if (!object) {
         await createObject({
@@ -509,10 +548,7 @@ const createObjectAndAttributes = async (
 
     const existingAttributes: any = await getAttributes(objectApiSlug)
 
-    console.log(existingAttributes)
-
-    for (const attribute of attributesToAdd) {
-        console.log(attribute)
+    for (const attribute of attributes) {
         if (
             !existingAttributes.data.find(
                 (existingAttribute: any) => existingAttribute?.api_slug === attribute.api_slug
@@ -526,6 +562,29 @@ const createObjectAndAttributes = async (
     }
 }
 
+const createSelectOptions = async (
+    object: string,
+    selectOptions: {attribute: string; options: string[]}[]
+) => {
+    for (const selectOption of selectOptions) {
+        const existingOptions: any = await listOptions(object, selectOption.attribute)
+
+        for (const option of selectOption.options) {
+            if (
+                !existingOptions.data.find(
+                    (existingOption: any) => existingOption?.title === option
+                )
+            ) {
+                await createOption({
+                    object,
+                    attribute: selectOption.attribute,
+                    title: option,
+                })
+            }
+        }
+    }
+}
+
 export default async function connectionAdded({connection}: {connection: Connection}) {
     const objects: any = await getObjects()
 
@@ -534,24 +593,22 @@ export default async function connectionAdded({connection}: {connection: Connect
         "customers",
         "Customer",
         "Customers",
-        customerAttributesToAdd
+        customerAttributes
     )
 
-    await createObjectAndAttributes(
-        objects,
-        "invoices",
-        "Invoice",
-        "Invoices",
-        invoiceAttributesToAdd
-    )
+    await createObjectAndAttributes(objects, "invoices", "Invoice", "Invoices", invoiceAttributes)
+
+    await createSelectOptions("invoices", invoiceSelectOptions)
 
     await createObjectAndAttributes(
         objects,
         "subscriptions",
         "Subscription",
         "Subscriptions",
-        subscriptionAttributesToAdd
+        subscriptionAttributes
     )
+
+    await createSelectOptions("subscriptions", subscriptionSelectOptions)
 
     const stripeWebhookHandler = await createWebhookHandler({
         fileName: "stripe",
@@ -607,21 +664,51 @@ export default async function connectionAdded({connection}: {connection: Connect
         }
     )
 
-    if (stripeWebhookRegistrationResponse.ok) {
-        const stripeWebhookRegistration = await stripeWebhookRegistrationResponse.json()
-
-        await updateWebhookHandler(stripeWebhookHandler.id, {
-            externalWebhookId: stripeWebhookRegistration.id,
-        })
-
-        await experimental_kv.set(
-            "stripe-webhook-secret",
-            stripeWebhookRegistration.webhook_endpoint.signing_secret
-        )
-    } else {
+    if (!stripeWebhookRegistrationResponse.ok) {
         console.error(
             `Stripe webhook registration failed: ${stripeWebhookRegistrationResponse.statusText} ${stripeWebhookRegistrationResponse.status} ${await stripeWebhookRegistrationResponse.text()}`
         )
         throw new Error("Stripe webhook registration failed")
+    }
+
+    const stripeWebhookRegistration = await stripeWebhookRegistrationResponse.json()
+
+    await updateWebhookHandler(stripeWebhookHandler.id, {
+        externalWebhookId: stripeWebhookRegistration.id,
+    })
+
+    await experimental_kv.set(
+        "stripe-webhook-secret",
+        stripeWebhookRegistration.webhook_endpoint.signing_secret
+    )
+
+    try {
+        await syncCustomers(connection)
+        await syncInvoices(connection)
+        await syncSubscriptions(connection)
+    } catch (error) {
+        console.error(error)
+
+        const stripeWebhookDeletionResponse = await fetch(
+            `https://api.stripe.com/v2/core/event_destinations/${stripeWebhookRegistration.id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${connection.value}`,
+                    "Stripe-Version": "2025-07-30.preview",
+                },
+            }
+        )
+
+        if (!stripeWebhookDeletionResponse.ok) {
+            console.error(
+                `Failed to delete Stripe webhook: ${stripeWebhookDeletionResponse.statusText} ${stripeWebhookDeletionResponse.status} ${await stripeWebhookDeletionResponse.text()}`
+            )
+
+            throw new Error("Failed to delete Stripe webhook")
+        }
+
+        await deleteWebhookHandler(stripeWebhookHandler.id)
+        throw new Error("Failed to sync Stripe resources to Attio objects")
     }
 }

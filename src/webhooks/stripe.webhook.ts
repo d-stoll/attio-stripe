@@ -142,7 +142,7 @@ export default async function stripeWebhookHandler(request: Request) {
                 })) as any
 
                 if (invoices.data.length > 0) {
-                    values.latest_invoice_id = invoices.data[0].id.record_id
+                    values.latest_invoice = invoices.data[0].id.record_id
                 }
             }
 
@@ -151,7 +151,7 @@ export default async function stripeWebhookHandler(request: Request) {
             }
 
             if (event.data.object.status) {
-                values.status = event.data.object.status
+                values.status = [event.data.object.status]
             }
 
             if (event.data.object.canceled_at) {
@@ -160,11 +160,11 @@ export default async function stripeWebhookHandler(request: Request) {
 
             if (event.data.object.cancel_at_period_end) {
                 values.cancelled =
-                    event.data.object.cancel_at_period_end === true ? "True" : "False"
+                    event.data.object.cancel_at_period_end === true ? ["True"] : ["False"]
             }
 
             if (event.data.object.collection_method) {
-                values.collection_method = event.data.object.collection_method
+                values.collection_method = [event.data.object.collection_method]
             }
 
             if (event.data.object.days_until_due) {
@@ -249,11 +249,11 @@ export default async function stripeWebhookHandler(request: Request) {
             }
 
             if (event.data.object.status) {
-                values.status = event.data.object.status
+                values.status = [event.data.object.status]
             }
 
             if (event.data.object.total) {
-                values.total = event.data.object.total
+                values.total = event.data.object.total / 100
             }
 
             if (event.data.object.amount_due) {
