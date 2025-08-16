@@ -10,6 +10,36 @@ import {createObject, getObjects} from "../api/objects"
 
 const customerAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     {
+        title: "Customer ID",
+        description: "The customer's ID in Stripe.",
+        api_slug: "customer_id",
+        type: "text",
+        is_required: true,
+        is_unique: true,
+        is_multiselect: false,
+        config: {},
+    },
+    {
+        title: "Email",
+        description: "The customer's email address.",
+        api_slug: "email",
+        type: "text",
+        is_required: false,
+        is_unique: false,
+        is_multiselect: false,
+        config: {},
+    },
+    {
+        title: "Name",
+        description: "The customer's name.",
+        api_slug: "name",
+        type: "text",
+        is_required: false,
+        is_unique: false,
+        is_multiselect: false,
+        config: {},
+    },
+    {
         title: "Address",
         description: "The customer's address.",
         api_slug: "address",
@@ -33,6 +63,30 @@ const customerAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
 ]
 
 const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
+    {
+        title: "Invoice ID",
+        description: "The invoice's ID in Stripe.",
+        api_slug: "invoice_id",
+        type: "text",
+        is_required: true,
+        is_unique: true,
+        is_multiselect: false,
+        config: {},
+    },
+    {
+        title: "Customer ID",
+        description: "The customer's ID in Stripe.",
+        api_slug: "customer_id",
+        type: "record-reference",
+        is_required: true,
+        is_unique: true,
+        is_multiselect: false,
+        config: {
+            record_reference: {
+                allowed_objects: ["customers"],
+            },
+        },
+    },
     {
         title: "Description",
         description: "A description of the invoice.",
@@ -287,6 +341,44 @@ const invoiceAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
 
 const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
     {
+        title: "Subscription ID",
+        description: "The subscription's ID in Stripe.",
+        api_slug: "subscription_id",
+        type: "text",
+        is_required: true,
+        is_unique: true,
+        is_multiselect: false,
+        config: {},
+    },
+    {
+        title: "Customer",
+        description: "The customer's ID in Stripe.",
+        api_slug: "customer_id",
+        type: "record-reference",
+        is_required: true,
+        is_unique: true,
+        is_multiselect: false,
+        config: {
+            record_reference: {
+                allowed_objects: ["customers"],
+            },
+        },
+    },
+    {
+        title: "Latest Invoice",
+        description: "The latest invoice for the subscription.",
+        api_slug: "latest_invoice",
+        type: "record-reference",
+        is_required: true,
+        is_unique: true,
+        is_multiselect: false,
+        config: {
+            record_reference: {
+                allowed_objects: ["invoices"],
+            },
+        },
+    },
+    {
         title: "Description",
         description:
             "The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.",
@@ -295,16 +387,6 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         is_required: false,
         is_unique: false,
         is_multiselect: false,
-        config: {},
-    },
-    {
-        title: "Items",
-        description: "List of subscription items, each with an attached price.",
-        api_slug: "items",
-        type: "select",
-        is_required: false,
-        is_unique: false,
-        is_multiselect: true,
         config: {},
     },
     {
@@ -371,17 +453,6 @@ const subscriptionAttributesToAdd: Omit<CreateAttributeParams, "object">[] = [
         is_required: false,
         is_unique: false,
         is_multiselect: false,
-        config: {},
-    },
-    {
-        title: "Discounts",
-        description:
-            "The discounts applied to the subscription. Subscription item discounts are applied before subscription discounts. Use expand[]=discounts to expand each discount.",
-        api_slug: "discounts",
-        type: "select",
-        is_required: false,
-        is_unique: false,
-        is_multiselect: true,
         config: {},
     },
     {
