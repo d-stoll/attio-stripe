@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
+/** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
 import {attioFetch} from "attio/server"
 
 export const getAttributes = async (object: string) => {

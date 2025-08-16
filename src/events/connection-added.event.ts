@@ -1,4 +1,4 @@
-/** biome-ignore-all lint(suspicious/noExplicitAny): For the purpose of this tutorial, we are using the `any` type to keep the code simple. In a real-world application, you should use more specific types. */
+/** biome-ignore-all lint(suspicious/noExplicitAny): dynamic return types */
 import {
     createWebhookHandler,
     deleteWebhookHandler,

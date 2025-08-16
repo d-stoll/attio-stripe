@@ -25,7 +25,6 @@ export async function syncInvoices(connection: Connection) {
         hasMore = data.has_more
 
         for (const invoice of data.data) {
-            console.log(invoice)
             const values: Record<string, any> = {
                 invoice_id: invoice.id,
             }

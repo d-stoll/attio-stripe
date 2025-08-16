@@ -25,7 +25,6 @@ export async function syncSubscriptions(connection: Connection) {
         hasMore = data.has_more
 
         for (const subscription of data.data) {
-            console.log(subscription)
             const values: Record<string, any> = {
                 subscription_id: subscription.id,
             }

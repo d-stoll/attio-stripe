@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
+/** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
 import {experimental_kv} from "attio/server"
 import {enc, HmacSHA256} from "crypto-js"
 import {timingSafeEqual} from "../lib/crypto"

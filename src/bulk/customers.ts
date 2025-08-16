@@ -25,7 +25,6 @@ export async function syncCustomers(connection: Connection) {
         hasMore = data.has_more
 
         for (const customer of data.data) {
-            console.log(customer)
             const values: Record<string, any> = {
                 customer_id: customer.id,
             }
