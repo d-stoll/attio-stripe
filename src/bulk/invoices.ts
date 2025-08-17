@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
-import {Connection} from "attio/server"
+import {Connection, experimental_kv} from "attio/server"
 import {assertRecord, listRecords} from "../api/records"
 
 export async function syncInvoices(connection: Connection) {
@@ -40,6 +40,19 @@ export async function syncInvoices(connection: Connection) {
                 if (customers.data.length > 0) {
                     values.customer_id = customers.data[0].id.record_id
                 }
+            }
+
+            if (invoice?.lines?.data) {
+                const products: string[] = []
+                for (const productId of invoice.lines.data.map(
+                    (line: any) => line.pricing.price_details.product
+                )) {
+                    const product = await experimental_kv.get(`stripe-product-${productId}`)
+                    if (product) {
+                        products.push(product.value as string)
+                    }
+                }
+                values.products = products
             }
 
             if (invoice.description) {

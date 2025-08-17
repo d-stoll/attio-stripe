@@ -3,6 +3,7 @@ import {experimental_kv} from "attio/server"
 import {enc, HmacSHA256} from "crypto-js"
 import {timingSafeEqual} from "../lib/crypto"
 import {assertRecord, deleteRecord, listRecords} from "../api/records"
+import {createOption} from "../api/attributes"
 
 export default async function stripeWebhookHandler(request: Request) {
     const body = await request.text()
@@ -182,6 +183,19 @@ export default async function stripeWebhookHandler(request: Request) {
                 }
             }
 
+            if (event.data.object?.items?.data) {
+                const products: string[] = []
+                for (const productId of event.data.object.items.data.map(
+                    (item: any) => item.plan.product
+                )) {
+                    const product = await experimental_kv.get(`stripe-product-${productId}`)
+                    if (product) {
+                        products.push(product.value as string)
+                    }
+                }
+                values.products = products
+            }
+
             if (event.data.object.description) {
                 values.description = event.data.object.description
             }
@@ -280,6 +294,19 @@ export default async function stripeWebhookHandler(request: Request) {
                 if (customers.data.length > 0) {
                     values.customer_id = customers.data[0].id.record_id
                 }
+            }
+
+            if (event.data.object?.lines?.data) {
+                const products: string[] = []
+                for (const productId of event.data.object.lines.data.map(
+                    (line: any) => line.pricing.price_details.product
+                )) {
+                    const product = await experimental_kv.get(`stripe-product-${productId}`)
+                    if (product) {
+                        products.push(product.value as string)
+                    }
+                }
+                values.products = products
             }
 
             if (event.data.object.description) {
@@ -383,6 +410,44 @@ export default async function stripeWebhookHandler(request: Request) {
                     })
                 }
             }
+            break
+        }
+        case "product.created": {
+            await experimental_kv.set(
+                `stripe-product-${event.data.object.id}`,
+                event.data.object.name
+            )
+
+            await createOption({
+                object: "invoices",
+                attribute: "products",
+                title: event.data.object.name,
+            })
+
+            await createOption({
+                object: "subscriptions",
+                attribute: "products",
+                title: event.data.object.name,
+            })
+            break
+        }
+        case "product.updated": {
+            await experimental_kv.set(
+                `stripe-product-${event.data.object.id}`,
+                event.data.object.name
+            )
+
+            await createOption({
+                object: "invoices",
+                attribute: "products",
+                title: event.data.object.name,
+            })
+
+            await createOption({
+                object: "subscriptions",
+                attribute: "products",
+                title: event.data.object.name,
+            })
             break
         }
         default:

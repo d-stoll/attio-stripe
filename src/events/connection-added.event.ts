@@ -17,6 +17,7 @@ import {createObject, getObjects} from "../api/objects"
 import {syncSubscriptions} from "../bulk/subscriptions"
 import {syncCustomers} from "../bulk/customers"
 import {syncInvoices} from "../bulk/invoices"
+import {syncProducts} from "../bulk/products"
 
 const customerAttributes: Omit<CreateAttributeParams, "object">[] = [
     {
@@ -167,6 +168,16 @@ const invoiceAttributes: Omit<CreateAttributeParams, "object">[] = [
                 allowed_objects: ["customers"],
             },
         },
+    },
+    {
+        title: "Products",
+        description: "List of products that are part of the invoice.",
+        api_slug: "products",
+        type: "select",
+        is_required: false,
+        is_unique: false,
+        is_multiselect: true,
+        config: {},
     },
     {
         title: "Description",
@@ -467,6 +478,16 @@ const subscriptionAttributes: Omit<CreateAttributeParams, "object">[] = [
         },
     },
     {
+        title: "Products",
+        description: "List of products that are part of the subscription.",
+        api_slug: "products",
+        type: "select",
+        is_required: false,
+        is_unique: false,
+        is_multiselect: true,
+        config: {},
+    },
+    {
         title: "Latest Invoice",
         description: "The latest invoice for the subscription.",
         api_slug: "latest_invoice",
@@ -756,6 +777,8 @@ export default async function connectionAdded({connection}: {connection: Connect
                     "invoice.updated",
                     "invoice.voided",
                     "invoice.will_be_due",
+                    "product.created",
+                    "product.updated",
                 ],
                 webhook_endpoint: {
                     url: stripeWebhookHandler.url,
@@ -784,6 +807,7 @@ export default async function connectionAdded({connection}: {connection: Connect
     )
 
     try {
+        await syncProducts(connection)
         await syncCustomers(connection)
         await syncInvoices(connection)
         await syncSubscriptions(connection)
