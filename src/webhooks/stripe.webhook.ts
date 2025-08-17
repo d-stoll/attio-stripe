@@ -201,7 +201,35 @@ export default async function stripeWebhookHandler(request: Request) {
             }
 
             if (event.data.object.status) {
-                values.status = [event.data.object.status]
+                switch (event.data.object.status) {
+                    case "incomplete":
+                        values.status = ["Incomplete"]
+                        break
+                    case "incomplete_expired":
+                        values.status = ["Incomplete Expired"]
+                        break
+                    case "trialing":
+                        values.status = ["Trialing"]
+                        break
+                    case "active":
+                        values.status = ["Active"]
+                        break
+                    case "past_due":
+                        values.status = ["Past Due"]
+                        break
+                    case "canceled":
+                        values.status = ["Canceled"]
+                        break
+                    case "unpaid":
+                        values.status = ["Unpaid"]
+                        break
+                    case "paused":
+                        values.status = ["Paused"]
+                        break
+                    default:
+                        console.warn(`Unknown subscription status: ${event.data.object.status}`)
+                        break
+                }
             }
 
             if (event.data.object.canceled_at) {
@@ -214,7 +242,19 @@ export default async function stripeWebhookHandler(request: Request) {
             }
 
             if (event.data.object.collection_method) {
-                values.collection_method = [event.data.object.collection_method]
+                switch (event.data.object.collection_method) {
+                    case "charge_automatically":
+                        values.collection_method = ["Charge Automatically"]
+                        break
+                    case "send_invoice":
+                        values.collection_method = ["Send Invoice"]
+                        break
+                    default:
+                        console.warn(
+                            `Unknown subscription collection method: ${event.data.object.collection_method}`
+                        )
+                        break
+                }
             }
 
             if (event.data.object.days_until_due) {
@@ -318,7 +358,26 @@ export default async function stripeWebhookHandler(request: Request) {
             }
 
             if (event.data.object.status) {
-                values.status = [event.data.object.status]
+                switch (event.data.object.status) {
+                    case "draft":
+                        values.status = ["Draft"]
+                        break
+                    case "open":
+                        values.status = ["Open"]
+                        break
+                    case "paid":
+                        values.status = ["Paid"]
+                        break
+                    case "uncollectible":
+                        values.status = ["Uncollectible"]
+                        break
+                    case "void":
+                        values.status = ["Void"]
+                        break
+                    default:
+                        console.warn(`Unknown invoice status: ${event.data.object.status}`)
+                        break
+                }
             }
 
             if (event.data.object.total) {
@@ -493,7 +552,7 @@ export default async function stripeWebhookHandler(request: Request) {
             break
         }
         default:
-            console.log(`Unhandled event type ${event.type}`)
+            console.warn(`Unhandled event type ${event.type}`)
     }
 
     return new Response("OK", {status: 200})

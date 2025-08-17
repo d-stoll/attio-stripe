@@ -64,7 +64,26 @@ export async function syncInvoices(connection: Connection) {
             }
 
             if (invoice.status) {
-                values.status = [invoice.status]
+                switch (invoice.status) {
+                    case "draft":
+                        values.status = ["Draft"]
+                        break
+                    case "open":
+                        values.status = ["Open"]
+                        break
+                    case "paid":
+                        values.status = ["Paid"]
+                        break
+                    case "uncollectible":
+                        values.status = ["Uncollectible"]
+                        break
+                    case "void":
+                        values.status = ["Void"]
+                        break
+                    default:
+                        console.warn(`Unknown invoice status: ${invoice.status}`)
+                        break
+                }
             }
 
             if (invoice.total) {

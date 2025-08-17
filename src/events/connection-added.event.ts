@@ -444,7 +444,7 @@ const invoiceAttributes: Omit<CreateAttributeParams, "object">[] = [
 const invoiceSelectOptions: {attribute: string; options: string[]}[] = [
     {
         attribute: "status",
-        options: ["draft", "open", "paid", "uncollectible", "void"],
+        options: ["Draft", "Open", "Paid", "Uncollectible", "Void"],
     },
     {
         attribute: "mode",
@@ -625,14 +625,14 @@ const subscriptionSelectOptions: {attribute: string; options: string[]}[] = [
     {
         attribute: "status",
         options: [
-            "incomplete",
-            "incomplete_expired",
-            "trialing",
-            "active",
-            "past_due",
-            "canceled",
-            "unpaid",
-            "paused",
+            "Incomplete",
+            "Incomplete Expired",
+            "Trialing",
+            "Active",
+            "Past Due",
+            "Canceled",
+            "Unpaid",
+            "Paused",
         ],
     },
     {
@@ -641,7 +641,7 @@ const subscriptionSelectOptions: {attribute: string; options: string[]}[] = [
     },
     {
         attribute: "collection_method",
-        options: ["charge_automatically", "send_invoice"],
+        options: ["Charge Automatically", "Send Invoice"],
     },
     {
         attribute: "mode",

@@ -73,7 +73,35 @@ export async function syncSubscriptions(connection: Connection) {
             }
 
             if (subscription.status) {
-                values.status = [subscription.status]
+                switch (subscription.status) {
+                    case "incomplete":
+                        values.status = ["Incomplete"]
+                        break
+                    case "incomplete_expired":
+                        values.status = ["Incomplete Expired"]
+                        break
+                    case "trialing":
+                        values.status = ["Trialing"]
+                        break
+                    case "active":
+                        values.status = ["Active"]
+                        break
+                    case "past_due":
+                        values.status = ["Past Due"]
+                        break
+                    case "canceled":
+                        values.status = ["Canceled"]
+                        break
+                    case "unpaid":
+                        values.status = ["Unpaid"]
+                        break
+                    case "paused":
+                        values.status = ["Paused"]
+                        break
+                    default:
+                        console.warn(`Unknown subscription status: ${subscription.status}`)
+                        break
+                }
             }
 
             if (subscription.canceled_at) {
@@ -85,7 +113,19 @@ export async function syncSubscriptions(connection: Connection) {
             }
 
             if (subscription.collection_method) {
-                values.collection_method = [subscription.collection_method]
+                switch (subscription.collection_method) {
+                    case "charge_automatically":
+                        values.collection_method = ["Charge Automatically"]
+                        break
+                    case "send_invoice":
+                        values.collection_method = ["Send Invoice"]
+                        break
+                    default:
+                        console.warn(
+                            `Unknown subscription collection method: ${subscription.collection_method}`
+                        )
+                        break
+                }
             }
 
             if (subscription.days_until_due) {
