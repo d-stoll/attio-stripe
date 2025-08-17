@@ -114,6 +114,12 @@ export async function syncInvoices(connection: Connection) {
                 values.total_excl_tax = invoice.total_excluding_tax / 100
             }
 
+            if (invoice.livemode) {
+                values.mode = ["Live"]
+            } else {
+                values.mode = ["Test"]
+            }
+
             await assertRecord({
                 object: "invoices",
                 values: values,

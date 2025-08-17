@@ -1,0 +1,19 @@
+query getSubscription($recordId: String!) {
+  record(id: $recordId, object: "subscriptions") {
+    id
+    subscription_id: attribute(slug: "subscription_id") {
+      __typename
+      ... on TextValue {
+        value
+      }
+    }
+    mode: attribute(slug: "mode") {
+      __typename
+      ... on SelectValue {
+        value {
+          title
+        }
+      }
+    }
+  }
+}

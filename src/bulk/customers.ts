@@ -89,6 +89,20 @@ export async function syncCustomers(connection: Connection) {
                 }
             }
 
+            if (customer.balance) {
+                values.balance = customer.balance / 100
+            }
+
+            if (customer.invoice_prefix) {
+                values.invoice_prefix = customer.invoice_prefix
+            }
+
+            if (customer.livemode) {
+                values.mode = ["Live"]
+            } else {
+                values.mode = ["Test"]
+            }
+
             await assertRecord({
                 object: "customers",
                 values: values,

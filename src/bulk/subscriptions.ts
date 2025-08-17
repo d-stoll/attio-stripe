@@ -91,6 +91,12 @@ export async function syncSubscriptions(connection: Connection) {
                 values.trial_end = new Date(subscription.trial_end * 1000).toISOString()
             }
 
+            if (subscription.livemode) {
+                values.mode = ["Live"]
+            } else {
+                values.mode = ["Test"]
+            }
+
             await assertRecord({
                 object: "subscriptions",
                 values: values,

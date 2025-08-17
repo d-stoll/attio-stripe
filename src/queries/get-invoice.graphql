@@ -1,0 +1,19 @@
+query getInvoice($recordId: String!) {
+  record(id: $recordId, object: "invoices") {
+    id
+    invoice_id: attribute(slug: "invoice_id") {
+      __typename
+      ... on TextValue {
+        value
+      }
+    }
+    mode: attribute(slug: "mode") {
+      __typename
+      ... on SelectValue {
+        value {
+          title
+        }
+      }
+    }
+  }
+}

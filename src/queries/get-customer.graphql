@@ -1,0 +1,19 @@
+query getCustomer($recordId: String!) {
+  record(id: $recordId, object: "customers") {
+    id
+    customer_id: attribute(slug: "customer_id") {
+      __typename
+      ... on TextValue {
+        value
+      }
+    }
+    mode: attribute(slug: "mode") {
+      __typename
+      ... on SelectValue {
+        value {
+          title
+        }
+      }
+    }
+  }
+}

@@ -106,6 +106,20 @@ export default async function stripeWebhookHandler(request: Request) {
                 }
             }
 
+            if (event.data.object.balance) {
+                values.balance = event.data.object.balance / 100
+            }
+
+            if (event.data.object.invoice_prefix) {
+                values.invoice_prefix = event.data.object.invoice_prefix
+            }
+
+            if (event.data.object.livemode) {
+                values.mode = ["Live"]
+            } else {
+                values.mode = ["Test"]
+            }
+
             await assertRecord({
                 object: "customers",
                 values: values,
@@ -203,6 +217,12 @@ export default async function stripeWebhookHandler(request: Request) {
 
             if (event.data.object.trial_end) {
                 values.trial_end = new Date(event.data.object.trial_end * 1000).toISOString()
+            }
+
+            if (event.data.object.livemode) {
+                values.mode = ["Live"]
+            } else {
+                values.mode = ["Test"]
             }
 
             await assertRecord({
@@ -332,6 +352,12 @@ export default async function stripeWebhookHandler(request: Request) {
 
             if (event.data.object.total_excluding_tax) {
                 values.total_excl_tax = event.data.object.total_excluding_tax / 100
+            }
+
+            if (event.data.object.livemode) {
+                values.mode = ["Live"]
+            } else {
+                values.mode = ["Test"]
             }
 
             await assertRecord({

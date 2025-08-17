@@ -98,6 +98,49 @@ const customerAttributes: Omit<CreateAttributeParams, "object">[] = [
         is_multiselect: false,
         config: {},
     },
+    {
+        title: "Balance",
+        description:
+            "The current balance, if any, that’s stored on the customer in their default currency. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that’s added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize.",
+        api_slug: "balance",
+        type: "currency",
+        is_required: false,
+        is_unique: false,
+        is_multiselect: false,
+        config: {
+            currency: {
+                default_currency_code: "USD",
+                display_type: "symbol",
+            },
+        },
+    },
+    {
+        title: "Invoice Prefix",
+        description: "The prefix for the customer used to generate unique invoice numbers.",
+        api_slug: "invoice_prefix",
+        type: "text",
+        is_required: false,
+        is_unique: false,
+        is_multiselect: false,
+        config: {},
+    },
+    {
+        title: "Mode",
+        description: "The mode of the customer, either 'Live' or 'Test'.",
+        api_slug: "mode",
+        type: "select",
+        is_required: false,
+        is_unique: false,
+        is_multiselect: false,
+        config: {},
+    },
+]
+
+const customerSelectOptions: {attribute: string; options: string[]}[] = [
+    {
+        attribute: "mode",
+        options: ["Live", "Test"],
+    },
 ]
 
 const invoiceAttributes: Omit<CreateAttributeParams, "object">[] = [
@@ -375,12 +418,26 @@ const invoiceAttributes: Omit<CreateAttributeParams, "object">[] = [
             },
         },
     },
+    {
+        title: "Mode",
+        description: "The mode of the customer, either 'Live' or 'Test'.",
+        api_slug: "mode",
+        type: "select",
+        is_required: false,
+        is_unique: false,
+        is_multiselect: false,
+        config: {},
+    },
 ]
 
 const invoiceSelectOptions: {attribute: string; options: string[]}[] = [
     {
         attribute: "status",
         options: ["draft", "open", "paid", "uncollectible", "void"],
+    },
+    {
+        attribute: "mode",
+        options: ["Live", "Test"],
     },
 ]
 
@@ -531,6 +588,16 @@ const subscriptionAttributes: Omit<CreateAttributeParams, "object">[] = [
         is_multiselect: false,
         config: {},
     },
+    {
+        title: "Mode",
+        description: "The mode of the customer, either 'Live' or 'Test'.",
+        api_slug: "mode",
+        type: "select",
+        is_required: false,
+        is_unique: false,
+        is_multiselect: false,
+        config: {},
+    },
 ]
 
 const subscriptionSelectOptions: {attribute: string; options: string[]}[] = [
@@ -554,6 +621,10 @@ const subscriptionSelectOptions: {attribute: string; options: string[]}[] = [
     {
         attribute: "collection_method",
         options: ["charge_automatically", "send_invoice"],
+    },
+    {
+        attribute: "mode",
+        options: ["Live", "Test"],
     },
 ]
 
@@ -623,6 +694,8 @@ export default async function connectionAdded({connection}: {connection: Connect
         "Customers",
         customerAttributes
     )
+
+    await createSelectOptions("customers", customerSelectOptions)
 
     await createObjectAndAttributes(objects, "invoices", "Invoice", "Invoices", invoiceAttributes)
 
