@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
 import {experimental_kv} from "attio/server"
 import {enc, HmacSHA256} from "crypto-js"
-import {createOption} from "../api/attributes"
+import {createOption, listOptions} from "../api/attributes"
 import {assertRecord, deleteRecord, listRecords} from "../api/records"
 import {timingSafeEqual} from "../lib/crypto"
 
@@ -418,17 +418,38 @@ export default async function stripeWebhookHandler(request: Request) {
                 event.data.object.name
             )
 
-            await createOption({
+            const existingInvoiceProductOptions: any = await listOptions({
                 object: "invoices",
                 attribute: "products",
-                title: event.data.object.name,
             })
-
-            await createOption({
+            const existingSubscriptionProductOptions: any = await listOptions({
                 object: "subscriptions",
                 attribute: "products",
-                title: event.data.object.name,
             })
+
+            if (
+                !existingInvoiceProductOptions.data.find(
+                    (option: any) => option.title === event.data.object.name
+                )
+            ) {
+                await createOption({
+                    object: "invoices",
+                    attribute: "products",
+                    title: event.data.object.name,
+                })
+            }
+
+            if (
+                !existingSubscriptionProductOptions.data.find(
+                    (option: any) => option.title === event.data.object.name
+                )
+            ) {
+                await createOption({
+                    object: "subscriptions",
+                    attribute: "products",
+                    title: event.data.object.name,
+                })
+            }
             break
         }
         case "product.updated": {
@@ -437,17 +458,38 @@ export default async function stripeWebhookHandler(request: Request) {
                 event.data.object.name
             )
 
-            await createOption({
+            const existingInvoiceProductOptions: any = await listOptions({
                 object: "invoices",
                 attribute: "products",
-                title: event.data.object.name,
             })
-
-            await createOption({
+            const existingSubscriptionProductOptions: any = await listOptions({
                 object: "subscriptions",
                 attribute: "products",
-                title: event.data.object.name,
             })
+
+            if (
+                !existingInvoiceProductOptions.data.find(
+                    (option: any) => option.title === event.data.object.name
+                )
+            ) {
+                await createOption({
+                    object: "invoices",
+                    attribute: "products",
+                    title: event.data.object.name,
+                })
+            }
+
+            if (
+                !existingSubscriptionProductOptions.data.find(
+                    (option: any) => option.title === event.data.object.name
+                )
+            ) {
+                await createOption({
+                    object: "subscriptions",
+                    attribute: "products",
+                    title: event.data.object.name,
+                })
+            }
             break
         }
         default:

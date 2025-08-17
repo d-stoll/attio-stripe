@@ -57,7 +57,7 @@ export const createAttribute = async ({
     })
 }
 
-export const listOptions = async (object: string, attribute: string) => {
+export const listOptions = async ({object, attribute}: {object: string; attribute: string}) => {
     return await attioFetch({
         method: "GET",
         path: `/objects/${object}/attributes/${attribute}/options`,

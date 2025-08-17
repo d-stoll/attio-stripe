@@ -687,7 +687,7 @@ const createSelectOptions = async (
     selectOptions: {attribute: string; options: string[]}[]
 ) => {
     for (const selectOption of selectOptions) {
-        const existingOptions: any = await listOptions(object, selectOption.attribute)
+        const existingOptions: any = await listOptions({object, attribute: selectOption.attribute})
 
         for (const option of selectOption.options) {
             if (

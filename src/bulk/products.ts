@@ -1,10 +1,25 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
 import {type Connection, experimental_kv} from "attio/server"
-import {createOption} from "../api/attributes"
+import {createOption, listOptions} from "../api/attributes"
 
 export async function syncProducts(connection: Connection) {
     let hasMore = true
     let startingAfter = null
+
+    const invoiceListOptions = (await listOptions({
+        object: "invoices",
+        attribute: "products",
+    })) as any
+
+    const subscriptionListOptions = (await listOptions({
+        object: "subscriptions",
+        attribute: "products",
+    })) as any
+
+    const invoiceOptions = invoiceListOptions.data.map((option: any) => option.title) as string[]
+    const subscriptionOptions = subscriptionListOptions.data.map(
+        (option: any) => option.title
+    ) as string[]
 
     while (hasMore) {
         const url = new URL("https://api.stripe.com/v1/products")
@@ -27,17 +42,23 @@ export async function syncProducts(connection: Connection) {
         for (const product of data.data) {
             await experimental_kv.set(`stripe-product-${product.id}`, product.name)
 
-            await createOption({
-                object: "invoices",
-                attribute: "products",
-                title: product.name,
-            })
+            if (!invoiceOptions.includes(product.name)) {
+                await createOption({
+                    object: "invoices",
+                    attribute: "products",
+                    title: product.name,
+                })
+                invoiceOptions.push(product.name)
+            }
 
-            await createOption({
-                object: "subscriptions",
-                attribute: "products",
-                title: product.name,
-            })
+            if (!subscriptionOptions.includes(product.name)) {
+                await createOption({
+                    object: "subscriptions",
+                    attribute: "products",
+                    title: product.name,
+                })
+                subscriptionOptions.push(product.name)
+            }
         }
 
         startingAfter = data.data[data.data.length - 1].id
