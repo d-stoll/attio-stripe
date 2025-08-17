@@ -1,23 +1,23 @@
 /** biome-ignore-all lint(suspicious/noExplicitAny): dynamic return types */
 import {
+    type Connection,
     createWebhookHandler,
     deleteWebhookHandler,
     experimental_kv,
     updateWebhookHandler,
-    type Connection,
 } from "attio/server"
 import {
+    type CreateAttributeParams,
     createAttribute,
     createOption,
     getAttributes,
     listOptions,
-    type CreateAttributeParams,
 } from "../api/attributes"
 import {createObject, getObjects} from "../api/objects"
-import {syncSubscriptions} from "../bulk/subscriptions"
 import {syncCustomers} from "../bulk/customers"
 import {syncInvoices} from "../bulk/invoices"
 import {syncProducts} from "../bulk/products"
+import {syncSubscriptions} from "../bulk/subscriptions"
 
 const customerAttributes: Omit<CreateAttributeParams, "object">[] = [
     {

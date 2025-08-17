@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
-import {Connection, experimental_kv} from "attio/server"
+import {type Connection, experimental_kv} from "attio/server"
 import {createOption} from "../api/attributes"
 
 export async function syncProducts(connection: Connection) {

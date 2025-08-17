@@ -1,9 +1,9 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
 import {experimental_kv} from "attio/server"
 import {enc, HmacSHA256} from "crypto-js"
-import {timingSafeEqual} from "../lib/crypto"
-import {assertRecord, deleteRecord, listRecords} from "../api/records"
 import {createOption} from "../api/attributes"
+import {assertRecord, deleteRecord, listRecords} from "../api/records"
+import {timingSafeEqual} from "../lib/crypto"
 
 export default async function stripeWebhookHandler(request: Request) {
     const body = await request.text()

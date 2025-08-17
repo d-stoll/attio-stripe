@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
-import {Connection, experimental_kv} from "attio/server"
+import {type Connection, experimental_kv} from "attio/server"
 import {assertRecord, listRecords} from "../api/records"
 
 export async function syncSubscriptions(connection: Connection) {

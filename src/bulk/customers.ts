@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
-import {Connection} from "attio/server"
+import type {Connection} from "attio/server"
 import {assertRecord, listRecords} from "../api/records"
 
 export async function syncCustomers(connection: Connection) {

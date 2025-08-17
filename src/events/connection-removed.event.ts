@@ -1,5 +1,9 @@
-import {listWebhookHandlers, deleteWebhookHandler, experimental_kv} from "attio/server"
-import type {Connection} from "attio/server"
+import {
+    type Connection,
+    deleteWebhookHandler,
+    experimental_kv,
+    listWebhookHandlers,
+} from "attio/server"
 
 export default async function connectionRemoved({connection}: {connection: Connection}) {
     const webhookHandlers = await listWebhookHandlers()
