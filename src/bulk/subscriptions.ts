@@ -24,7 +24,7 @@ export async function syncSubscriptions(connection: Connection) {
 
         hasMore = data.has_more
 
-        for (const subscription of data.data) {
+        const recordPromises = data.data.map(async (subscription: any) => {
             const values: Record<string, any> = {
                 subscription_id: subscription.id,
             }
@@ -150,13 +150,17 @@ export async function syncSubscriptions(connection: Connection) {
                 values.mode = ["Test"]
             }
 
-            await assertRecord({
+            return assertRecord({
                 object: "subscriptions",
                 values: values,
                 matching_attribute: "subscription_id",
             })
-        }
+        })
 
-        startingAfter = data.data[data.data.length - 1].id
+        await Promise.all(recordPromises)
+
+        if (data.data.length > 0) {
+            startingAfter = data.data[data.data.length - 1].id
+        }
     }
 }

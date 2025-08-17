@@ -24,7 +24,7 @@ export async function syncCustomers(connection: Connection) {
 
         hasMore = data.has_more
 
-        for (const customer of data.data) {
+        const recordPromises = data.data.map(async (customer: any) => {
             const values: Record<string, any> = {
                 customer_id: customer.id,
             }
@@ -103,13 +103,17 @@ export async function syncCustomers(connection: Connection) {
                 values.mode = ["Test"]
             }
 
-            await assertRecord({
+            return assertRecord({
                 object: "customers",
                 values: values,
                 matching_attribute: "customer_id",
             })
-        }
+        })
 
-        startingAfter = data.data[data.data.length - 1].id
+        await Promise.all(recordPromises)
+
+        if (data.data.length > 0) {
+            startingAfter = data.data[data.data.length - 1].id
+        }
     }
 }
