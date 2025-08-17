@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
 import {Connection} from "attio/server"
-import {assertRecord} from "../api/records"
+import {assertRecord, listRecords} from "../api/records"
 
 export async function syncCustomers(connection: Connection) {
     let hasMore = true
@@ -31,7 +31,30 @@ export async function syncCustomers(connection: Connection) {
 
             if (customer.email) {
                 values.email = customer.email
+
+                const users = (await listRecords({
+                    object: "users",
+                    filter: {
+                        primary_email_address: customer.email,
+                    },
+                })) as any
+
+                if (users.data.length > 0) {
+                    values.user_id = users.data[0].id.record_id
+                }
+
+                const people = (await listRecords({
+                    object: "people",
+                    filter: {
+                        email_addresses: customer.email,
+                    },
+                })) as any
+
+                if (people.data.length > 0) {
+                    values.person_id = people.data[0].id.record_id
+                }
             }
+
             if (customer.name) {
                 values.name = customer.name
             }
