@@ -39,9 +39,11 @@
 
 The app will create syned objects for the following resources:
 
-* Customers: All of your Stripe customers will be synced into a `Customers` object in Attio. Key information such as name and email address will be brought over, and all of their properties will be mapped to attributes.
-* Invoices: All of your Stripe invoices will be synced into a `Invoices` object in Attio. Each invoice will be linked to its corresponding customer.
-* Subscription: All of your Stripe subscriptions will be synced into a `Subscriptions` object in Attio. Each subscription will be linked to its corresponding customer.
+| Stripe Resource | Attio Object & Description                                                                                                                                                             |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Customers**   | All of your Stripe customers will be synced into a `Customers` object in Attio. Key information such as name and email address will be brought over.                                    |
+| **Invoices**    | All of your Stripe invoices will be synced into a `Invoices` object in Attio. Each invoice will be linked to its corresponding customer.                                                  |
+| **Subscription**    | All of your Stripe subscriptions will be synced into a `Subscriptions` object in Attio. Each subscription will be linked to its corresponding customer. |
 
 Each record page will contain an action on the top right that redirects to the resource in the Stripe dashboard.
 
