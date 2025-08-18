@@ -4,7 +4,7 @@ These Terms and Conditions (“Terms and Conditions”) are entered into by and 
 
 Daniel Stoll provides a service to automatically synchronize data between the paypemt processing platform Stripe (“Stripe”) and the customer relationship management system Attio (“Attio”). The service is distributed through the Attio App Store (“Stripe”) and runs on top of the Attio platform. In order to allow User to make use of the service, User is granted access to the Services (as defined herein) in accordance with and strictly limited to the scope of these Terms and Conditions.
 
-The Terms and Conditions are available at [TERMS.md](https://github.com/d-stoll/attio-stripe/TERMS.md) and can be downloaded and printed by User. Daniel Stoll does not save this agreement text after conclusion of the contract. Daniel Stoll is entitled to modify and/or supplement these Terms and Conditions from time to time.
+The Terms and Conditions are available at [TERMS.md](https://github.com/d-stoll/attio-stripe/blob/main/TERMS.md) and can be downloaded and printed by User. Daniel Stoll does not save this agreement text after conclusion of the contract. Daniel Stoll is entitled to modify and/or supplement these Terms and Conditions from time to time.
 
 By agreeing to these Terms and Conditions, User represents to us that the User is lawfully able to enter into contracts and, in case the consent to these Terms and Conditions is declared on behalf of a legal entity or another person, the individual agreeing to these Terms and Conditions is legally authorized to act on behalf of the legal entity or person.
 
