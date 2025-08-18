@@ -274,7 +274,7 @@ const invoiceAttributes: Omit<CreateAttributeParams, "object">[] = [
         },
     },
     {
-        title: "Aplied Amount",
+        title: "Applied Amount",
         description: "The amount that was applied to the invoice.",
         api_slug: "applied_amount",
         type: "currency",

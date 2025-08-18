@@ -121,6 +121,22 @@ Nice! We are almost done. Last thing to do is really simple: Go back to your Att
 
 Puh, hope you stayed until the end here. But now your workspace is ready to go. The app has configured everything else for you automatically.
 
+### 5. Set currency
+
+By default, USD is configured as currency. If you are using another currency you have to change the currency on the following attributes of the `Invoices` object:
+
+- Total
+- Amount Due
+- Amount Overpaid
+- Amount Paid
+- Amount Remaining
+- Amount Shipping
+- Applied Amount
+- Ending Balance
+- Starting Balance
+- Subtotal
+- Subtotal Excluding Tax
+- Total Excluding Tax
 
 ## License
 
