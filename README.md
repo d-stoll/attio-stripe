@@ -85,7 +85,7 @@ In the first step, we are going to change the appearance of the object icons, fo
 6. Go back and click on the SUbscription object.
 7. Set the icon to the "Two Dot Connected" emoji (last emoji on the bottom-right) and color to red.
 
-![Attio Object Settings](docs/object-settings.png)
+![Object Settings](docs/object-settings.png)
 
 Already looks soo much better. But we can do more.
 
@@ -100,6 +100,8 @@ As next step, you should also customize the preview of records when you hover ov
 5. Go back, then click on the Subscription object.
 6. In the Appearance tab, choose the Subscription ID as Record Text.
 
+![Record Preview](docs/record-preview.png)
+
 ### 3. Add widgets to customer pages
 
 This step is optional. We provide you some widgets that you can add to the overview tab of customer pages. For this do:
@@ -108,6 +110,8 @@ This step is optional. We provide you some widgets that you can add to the overv
 2. Click on "Configure record page"
 3. Add three widgets: Monthly Revenue, Average Order Value, and Total Revenue.
 4. Save the changes
+
+![Widgets](docs/widgets.png)
 
 ### 4. Initialize record views
 
