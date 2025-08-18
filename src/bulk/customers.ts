@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: dynamic return types */
 import type {Connection} from "attio/server"
-import {assertRecord, listRecords} from "../api/records"
+import {assertRecord} from "../api/records"
 
 export async function syncCustomers(connection: Connection) {
     let hasMore = true
@@ -24,35 +24,13 @@ export async function syncCustomers(connection: Connection) {
 
         hasMore = data.has_more
 
-        const recordPromises = data.data.map(async (customer: any) => {
+        for (const customer of data.data) {
             const values: Record<string, any> = {
                 customer_id: customer.id,
             }
 
             if (customer.email) {
                 values.email = customer.email
-
-                const users = (await listRecords({
-                    object: "users",
-                    filter: {
-                        primary_email_address: customer.email,
-                    },
-                })) as any
-
-                if (users.data.length > 0) {
-                    values.user_id = users.data[0].id.record_id
-                }
-
-                const people = (await listRecords({
-                    object: "people",
-                    filter: {
-                        email_addresses: customer.email,
-                    },
-                })) as any
-
-                if (people.data.length > 0) {
-                    values.person_id = people.data[0].id.record_id
-                }
             }
 
             if (customer.name) {
@@ -103,14 +81,12 @@ export async function syncCustomers(connection: Connection) {
                 values.mode = ["Test"]
             }
 
-            return assertRecord({
+            await assertRecord({
                 object: "customers",
                 values: values,
                 matching_attribute: "customer_id",
             })
-        })
-
-        await Promise.all(recordPromises)
+        }
 
         if (data.data.length > 0) {
             startingAfter = data.data[data.data.length - 1].id

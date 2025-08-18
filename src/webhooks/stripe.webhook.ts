@@ -50,29 +50,8 @@ export default async function stripeWebhookHandler(request: Request) {
 
             if (event.data.object.email) {
                 values.email = event.data.object.email
-
-                const users = (await listRecords({
-                    object: "users",
-                    filter: {
-                        primary_email_address: event.data.object.email,
-                    },
-                })) as any
-
-                if (users.data.length > 0) {
-                    values.user_id = users.data[0].id.record_id
-                }
-
-                const people = (await listRecords({
-                    object: "people",
-                    filter: {
-                        email_addresses: event.data.object.email,
-                    },
-                })) as any
-
-                if (people.data.length > 0) {
-                    values.person_id = people.data[0].id.record_id
-                }
             }
+
             if (event.data.object.name) {
                 values.name = event.data.object.name
             }

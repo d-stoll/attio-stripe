@@ -31,34 +31,6 @@ const customerAttributes: Omit<CreateAttributeParams, "object">[] = [
         config: {},
     },
     {
-        title: "User",
-        description: "The associated user in Attio.",
-        api_slug: "user_id",
-        type: "record-reference",
-        is_required: false,
-        is_unique: false,
-        is_multiselect: false,
-        config: {
-            record_reference: {
-                allowed_objects: ["users"],
-            },
-        },
-    },
-    {
-        title: "Person",
-        description: "The associated person in Attio.",
-        api_slug: "person_id",
-        type: "record-reference",
-        is_required: false,
-        is_unique: false,
-        is_multiselect: false,
-        config: {
-            record_reference: {
-                allowed_objects: ["people"],
-            },
-        },
-    },
-    {
         title: "Email",
         description: "The customer's email address.",
         api_slug: "email",

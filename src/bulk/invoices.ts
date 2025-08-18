@@ -24,7 +24,7 @@ export async function syncInvoices(connection: Connection) {
 
         hasMore = data.has_more
 
-        const recordPromises = data.data.map(async (invoice: any) => {
+        for (const invoice of data.data) {
             const values: Record<string, any> = {
                 invoice_id: invoice.id,
             }
@@ -152,14 +152,12 @@ export async function syncInvoices(connection: Connection) {
                 values.mode = ["Test"]
             }
 
-            return assertRecord({
+            await assertRecord({
                 object: "invoices",
                 values: values,
                 matching_attribute: "invoice_id",
             })
-        })
-
-        await Promise.all(recordPromises)
+        }
 
         if (data.data.length > 0) {
             startingAfter = data.data[data.data.length - 1].id
