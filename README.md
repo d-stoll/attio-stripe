@@ -30,11 +30,10 @@
   <a href="#license">License</a>
 </p>
 
-> [!NOTE]
-> This app is community-maintained and not officially affiliated with Stripe or Attio. All rights regarding used logos and trademarks belong to Stripe Inc or Attio Ltd respectively.
-
 ![Thumbnail](docs/thumbnail.png)
 
+> [!NOTE]
+> This app is community-maintained and not officially affiliated with Stripe or Attio. All rights regarding used logos and trademarks belong to Stripe Inc or Attio Ltd respectively.
 
 ## Features
 
