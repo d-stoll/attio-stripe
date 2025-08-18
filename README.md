@@ -1,10 +1,11 @@
-# Stripe 🤝 Attio
+# Attio 🤝 Stripe
 
 > [!NOTE]
-> This app is community-maintained and not officially affiliated with Stripe or Attio. All rights regarding the trademark & logo for Stripe belong to Stripe Inc. All rights regarding the trademark & logo for Attio belong to Attio Ltd.
+> This app is community-maintained and not officially affiliated with Stripe or Attio. All rights regarding used logos and trademarks belong to Stripe Inc or Attio Ltd respectively.
+
+![Thumbnail](docs/thumbnail.png)
 
 Sync resources from Stripe to Attio custom objects in realtime. Connect your Stripe account in one click and the app will automatically create custom objects in Attio and capture any changes in Stripe in your workspace.
-
 
 ## Features
 
@@ -13,6 +14,15 @@ The app will create syned objects for the following resources:
 * Customers: All of your Stripe customers will be synced into a `Customers` object in Attio. Key information such as name and email address will be brought over, and all of their properties will be mapped to attributes.
 * Invoices: All of your Stripe invoices will be synced into a `Invoices` object in Attio. Each invoice will be linked to its corresponding customer.
 * Subscription: All of your Stripe subscriptions will be synced into a `Subscriptions` object in Attio. Each subscription will be linked to its corresponding customer.
+
+Each record page will contain an action on the top right that redirects to the resource in the Stripe dashboard.
+
+Furthermore the `Customer` record page can be customized with the following widgets:
+
+* Monthly Revenue
+* Annual Revenue
+* Total Revenue
+* Average Order Value
 
 
 ## Requirements
