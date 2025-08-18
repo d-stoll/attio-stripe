@@ -73,6 +73,10 @@ We recommend Pro or Enterprise since both plans have enough objects to not inter
 
 By default, all custom objects have the default settings, which mean they are grey and have a box as icon. That hurts our eyes, so let's change it.
 
+### 1. Change object icons and colors
+
+In the first step, we are going to change the appearance of the object icons, for this do the following:
+
 1. Click on the top left on your organization > Workspace settings > Objects.
 2. Click on the Customer Object and under "Singular noun" click on the icon.
 3. Set the icon to the "Happy Face" emoji and color to green.
@@ -83,15 +87,29 @@ By default, all custom objects have the default settings, which mean they are gr
 
 ![Attio Object Settings](docs/object-settings.png)
 
-Already looks soo much better. Now lets customize the record pages.
+Already looks soo much better. But we can do more.
+
+### 2. Customize record previews
+
+As next step, you should also customize the preview of records when you hover over them. For this do:
 
 1. Click on the Customer object again, and go to the Appearance tab.
 2. Set the Record text to Name.
-3. Click on "Configure record page", and add three widgets: Monthly Revenue, Average Order Value, and Total Revenue.
-4. Go back twice, and click on the Invoice object.
-5. In the Appearance tab, choose the Receipt Number as Record Text.
-6. Go back, then click on the Subscription object.
-7. In the Appearance tab, choose the Subscription ID as Record Text.
+3. Go back, and click on the Invoice object.
+4. In the Appearance tab, choose the Receipt Number as Record Text.
+5. Go back, then click on the Subscription object.
+6. In the Appearance tab, choose the Subscription ID as Record Text.
+
+### 3. Add widgets to customer pages
+
+This step is optional. We provide you some widgets that you can add to the overview tab of customer pages. For this do:
+
+1. Click on the Customer object, and go to the Appearance tab.
+2. Click on "Configure record page"
+3. Add three widgets: Monthly Revenue, Average Order Value, and Total Revenue.
+4. Save the changes
+
+### 4. Initialize record views
 
 Nice! We are almost done. Last thing to do is really simple: Go back to your Attio Workspace and on the sidebar click on each record (Customers, Invoices, Subscriptions) once, and add a default list view for all of them.
 
