@@ -1,11 +1,40 @@
-# Attio 🤝 Stripe
+<h1 align="center">
+  <br>
+  Attio 🤝 Stripe
+  <br>
+</h1>
+
+<h4 align="center">Sync resources from Stripe to Attio custom objects in realtime. </h4>
+
+<p align="center">
+  <a href="https://github.com/d-stoll/attio-stripe/actions/workflows/build.yml/badge.svg">
+    <img src="https://github.com/d-stoll/attio-stripe/actions/workflows/build.yml/badge.svg" alt="Build status">
+  </a>
+  <a href="https://img.shields.io/github/license/d-stoll/attio-stripe">
+    <img src="https://img.shields.io/github/license/d-stoll/attio-stripe" alt="License">
+  </a>
+  <a href="https://img.shields.io/github/languages/top/d-stoll/attio-stripe">
+    <img src="https://img.shields.io/github/languages/top/d-stoll/attio-stripe" alt="Top language">
+  </a>
+</p>
+
+<p align="center">
+  <a href="#features">Features</a>
+  •
+  <a href="#requirements">Requirements</a>
+  •
+  <a href="#installation">Installation</a>
+  •
+  <a href="#customization">Customization</a>
+  •
+  <a href="#license">License</a>
+</p>
 
 > [!NOTE]
 > This app is community-maintained and not officially affiliated with Stripe or Attio. All rights regarding used logos and trademarks belong to Stripe Inc or Attio Ltd respectively.
 
 ![Thumbnail](docs/thumbnail.png)
 
-Sync resources from Stripe to Attio custom objects in realtime. Connect your Stripe account in one click and the app will automatically create custom objects in Attio and capture any changes in Stripe in your workspace.
 
 ## Features
 
@@ -70,6 +99,11 @@ Nice! We are almost done. Last thing to do is really simple: Go back to your Att
 Puh, hope you stayed until the end here. But now your workspace is ready to go. The app has configured everything else for you automatically.
 
 
+## License
+
+MIT License
+
+Copyright (c) 2025 Daniel Stoll.
 
 
 
