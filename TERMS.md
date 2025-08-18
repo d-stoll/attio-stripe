@@ -72,7 +72,7 @@ By agreeing to these Terms and Conditions, User represents to us that the User i
 
 ## 8. Renumation
 
-**8.1** The Servicess are provided free of charge.
+The Services are provided free of charge.
 
 ## 9. Term and Termination of this Agreement
 
