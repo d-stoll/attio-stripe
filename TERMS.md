@@ -2,7 +2,7 @@
 
 These Terms and Conditions (“Terms and Conditions”) are entered into by and between Daniel Stoll, Stadionstr. 6, 85716 Unterschleißheim, Germany (“Daniel Stoll”) and the legal entity or natural person agreeing to these terms (“User”).
 
-Daniel Stoll provides a service to automatically synchronize data between the paypemt processing platform Stripe (“Stripe”) and the customer relationship management system Attio (“Attio”). The service is distributed through the Attio App Store (“Stripe”) and runs on top of the Attio platform. In order to allow User to make use of the service, User is granted access to the Services (as defined herein) in accordance with and strictly limited to the scope of these Terms and Conditions.
+Daniel Stoll provides a service to automatically synchronize data between the payment processing platform Stripe (“Stripe”) and the customer relationship management system Attio (“Attio”). The service is distributed through the Attio App Store and runs on top of the Attio platform. In order to allow User to make use of the service, User is granted access to the Services (as defined herein) in accordance with and strictly limited to the scope of these Terms and Conditions.
 
 The Terms and Conditions are available at [TERMS.md](https://github.com/d-stoll/attio-stripe/blob/main/TERMS.md) and can be downloaded and printed by User. Daniel Stoll does not save this agreement text after conclusion of the contract. Daniel Stoll is entitled to modify and/or supplement these Terms and Conditions from time to time.
 
@@ -10,11 +10,11 @@ By agreeing to these Terms and Conditions, User represents to us that the User i
 
 ## 1. Definitions
 
-**1.1** **“Agreement”** referes to the agreement between User and Daniel Stoll concerning the use of Daniel Stoll's Services in accordance with these Terms and Conditions.
+**1.1** **“Agreement”** refers to the agreement between User and Daniel Stoll concerning the use of Daniel Stoll's Services in accordance with these Terms and Conditions.
 
 **1.2.** **“Input”** refers to any input data read from Stripe by Daniel Stoll's Services in connection with the use of the Services. The input data will be read and processed by infrastructure operated by Attio.
 
-**1.3** **“User”** refers to thge entity using the Services as the contracting party.
+**1.3** **“User”** refers to the entity using the Services as the contracting party.
 
 **1.4** **“Output”** refers to the any data that is written to Attio by the Services.
 
@@ -26,15 +26,15 @@ By agreeing to these Terms and Conditions, User represents to us that the User i
 
 ## 3. Services of Daniel Stoll
 
-**3.1** Daniel Stoll provides User with access to the Servicess within the term and scope of the Agreement.
+**3.1** Daniel Stoll provides User with access to the Services within the term and scope of the Agreement.
 
-**3.2** Daniel Stoll will process and store User's Content (Input and Output) for the purpose of providing the Servicess. Daniel Stoll will not use User's Content to develop or improve the Servicess, or for any other purpose other than providing the Servicess. Daniel Stoll shall be entitled to create and retain logs and meta data of User's Content for security and debugging purposes.
+**3.2** Daniel Stoll will process and store User's Content (Input and Output) for the purpose of providing the Services. Daniel Stoll will not use User's Content to develop or improve the Services, or for any other purpose other than providing the Services. Daniel Stoll shall be entitled to create and retain logs and meta data of User's Content for security and debugging purposes.
 
-**3.3** Futher services, including but not limited to consulting, individual development, or implementation or training services, shall not be part of the Servicess.
+**3.3** Futher services, including but not limited to consulting, individual development, or implementation or training services, shall not be part of the Services.
 
 ## 4. Conclusion of the Contract
 
-**4.1** To access Servicess, Users must install the App from the Attio App Store and follow the setup process.
+**4.1** To access Services, Users must install the App from the Attio App Store and follow the setup process.
 
 **4.2** Daniel Stoll reserves the right to reject User requests.
 
@@ -44,7 +44,7 @@ By agreeing to these Terms and Conditions, User represents to us that the User i
 
 **5.1** “Confidential Information” means any business, technical or financial information, materials, or other subject matter disclosed by one party (“Discloser”) to the other party (“Recipient”) that is identified as confidential at the time of disclosure or should be reasonably understood by Recipient to be confidential under the circumstances. For the avoidance of doubt, Confidential Information includes Input and Output of the Services. Recipient agrees it will: (a) only use Discloser's Confidential Information to exercise its rights and fulfill its obligations under this Agreement, (b) take reasonable measures to protect the Confidential Information, and (c) not disclose the Confidential Information to any third party except as expressly permitted in this Agreement.
 
-**5.2** The obligations in Section 5.1 do not apply to any information that (a) is or becomes generally available to the public through no fault of Recipient, (b) was in Recipient’s possession or known by it prior to receipt from Discloser, (c) was rightfully disclosed to Recipient without restriction by a third party, or (d) was independently developed without use of Discloser’s Confidential Information. Recipient may disclose Confidential Information only to its employees, contractors, and agents who have a need to know and who are bound by confidentiality obligations at  least as restrictive as those of this Agreement. Recipient will be  responsible for any breach of this Section 6 by its employees, contractors, and agents. Recipient may disclose Confidential Information to the extent required by law or as ordered by a court or administrative authority of competent jurisdiction, provided that Recipient uses reasonable efforts to notify Discloser in advance.
+**5.2** The obligations in Section 5.1 do not apply to any information that (a) is or becomes generally available to the public through no fault of Recipient, (b) was in Recipient’s possession or known by it prior to receipt from Discloser, (c) was rightfully disclosed to Recipient without restriction by a third party, or (d) was independently developed without use of Discloser’s Confidential Information. Recipient may disclose Confidential Information only to its employees, contractors, and agents who have a need to know and who are bound by confidentiality obligations at  least as restrictive as those of this Agreement. Recipient will be  responsible for any breach of this Section 5 by its employees, contractors, and agents. Recipient may disclose Confidential Information to the extent required by law or as ordered by a court or administrative authority of competent jurisdiction, provided that Recipient uses reasonable efforts to notify Discloser in advance.
 
 ## 6. Copyright and Intellectual Property
 
@@ -56,11 +56,11 @@ By agreeing to these Terms and Conditions, User represents to us that the User i
 
 ## 7. Obligations of User
 
-**7.1** Daniel Stoll owns all right, title, and interest in and to the Services. User is only granted rights to use the Servicess as explicitly granted in this Agreement. User will not:
+**7.1** Daniel Stoll owns all right, title, and interest in and to the Services. User is only granted rights to use the Services as explicitly granted in this Agreement. User will not:
 
-* (a) use the Servicess or Output in a manner that violates any applicable laws;
-* (b) use the Servicess or Output in a manner that infringes, misappropriates, or otherwise violates any rights of a third party (including copyrights and other intellectual property rights of third parties);
-* (c) reverse engineer, reverse assemble, reverse compile, decompile, translate, engage in model extraction or stealing attacks, or otherwise attempt to discover the source code or underlying components of the Servicess, algorithms, and systems of the Servicess (except to the extent these restrictions are contrary to applicable law);
+* (a) use the Services or Output in a manner that violates any applicable laws;
+* (b) use the Services or Output in a manner that infringes, misappropriates, or otherwise violates any rights of a third party (including copyrights and other intellectual property rights of third parties);
+* (c) reverse engineer, reverse assemble, reverse compile, decompile, translate, engage in model extraction or stealing attacks, or otherwise attempt to discover the source code or underlying components of the Services, algorithms, and systems of the Services (except to the extent these restrictions are contrary to applicable law);
 * (d) interfere with, disrupt, or create an undue burden on the Services;
 * (e) circumvent, disable, or otherwise interfere with security-related features of the Services, including features that prevent or restrict the use or copying of any content or enforce limitations on the use of the Services and/or the content contained therein;
 * (f) engage in unauthorized framing of or linking to the Services;
@@ -68,9 +68,9 @@ By agreeing to these Terms and Conditions, User represents to us that the User i
 * (h) delete the copyright or other proprietary rights notice from any content;
 * (i) upload or transmit (or attempt to upload or to transmit) any material that acts as a passive or active information collection or transmission mechanism, including without limitation, clear graphics interchange formats ("gifs"), 1×1 pixels, web bugs, cookies, or other similar devices (sometimes referred to as "spyware" or "passive collection mechanisms" or "pcms");
 
-**7.2** User may use the Servicess solely for the purpose agreed between the Parties.
+**7.2** User may use the Services solely for the purpose agreed between the Parties.
 
-## 8. Renumation
+## 8. Remuneration
 
 The Services are provided free of charge.
 
@@ -84,7 +84,7 @@ The Services are provided free of charge.
 
 ## 10. Warranty
 
-The Services and all Output, information, content and materials included on or otherwise made available to the User through the Services are provided on an “AS IS” and “AS AVAILABLE” basis. Daniel Stoll makes no representation on warranties of any kind, express or implied, as to the accuracy, completeness, timeliness, or reliability of the information or the operation of the Services. User expressly agrees the use of the Services is at the sole risk of the User. Daniel Stoll disclaims all warranties, express or implied, including, but not limited to, implied warranties of merchantability and fitness for a particular purpose.
+The Services and all Output, information, content and materials included on or otherwise made available to the User through the Services are provided on an “AS IS” and “AS AVAILABLE” basis. Daniel Stoll makes no representations or warranties of any kind, express or implied, as to the accuracy, completeness, timeliness, or reliability of the information or the operation of the Services. User expressly agrees the use of the Services is at the sole risk of the User. Daniel Stoll disclaims all warranties, express or implied, including, but not limited to, implied warranties of merchantability and fitness for a particular purpose.
 
 ## 11. Amendments
 
